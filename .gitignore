@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# Secrets
+.env
+
+# PDFs, screenshots and user data
+data/*.pdf
+images/*.png
+
+# RAG generated files
+chunks.pkl
+embeddings.index
+
+# Editor files
+*.code-workspace
+*.save
+
+# Large downloads
+ollama.tar.zst
