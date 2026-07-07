@@ -78,52 +78,76 @@ Used to learn web application fundamentals and provide greater flexibility than 
 ### React
 Planned future frontend framework for a production-ready interface.
 
-## Installation and Usage
+## Installation
 
-### 1. Clone the repository:
+1. Clone the repository
 
-```
+```bash
 git clone https://github.com/george-powell/university-RAG-assistant
 cd university-RAG-assistant
 ```
-### 2. Developer setup
-create and activate a virtual environment:
-```
+
+2. Create and activate a virtual environment
+
+```bash
 python -m venv .venv
+```
+
+Linux/macOS:
+
+```bash
 source .venv/bin/activate
 ```
-### 3. Install dependencies
-first install Ollama and pull the `llama3.1` model (or another desired model)
+
+Windows (PowerShell):
+
+```powershell
+.venv\Scripts\Activate.ps1
 ```
+
+3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
-### 4. Build the vector database
-processes PDF's, chunks them, then creates and stores vector embeddings in a FAISS Index.
+
+4. Install Ollama and pull the model
+
+```bash
+ollama pull llama3.1
 ```
+
+5. Build the vector database
+
+```bash
 python src/ingest.py
 ```
-### 5. Run your chosen interface
-You can interact with the LLM through 1 of the 3 interfaces
-First run Ollama:
 
-```
+## Running the application
+
+Start Ollama:
+
+```bash
 ollama serve
 ```
-To run the command-line assistant:
 
-```
+Then choose one interface:
+
+Command line:
+
+```bash
 python src/query.py
 ```
 
-To run the Streamlit interface:
+Streamlit:
 
-```
-streamlit run src/st_app.py [ARGUMENTS]
+```bash
+streamlit run src/st_app.py
 ```
 
-To run the Flask interface:
+Flask:
 
-```
+```bash
 python src/app.py
 ```
 

@@ -8,9 +8,8 @@ __pycache__/
 # Secrets
 .env
 
-# PDFs, screenshots and user data
+# PDFs and user data
 data/*.pdf
-images/*.png
 
 # RAG generated files
 chunks.pkl
