@@ -52,7 +52,7 @@ def home():
         similarity, indices = index.search(q_vector, k=5)
 
         # Reject questions with insufficient lecture-note relevance
-        if similarity[0][0] < 0.3:
+        if similarity[0][0] > 0.3: # Greater than (>) due to FAISS taking argmin of the Euclidian distance (L2)
             return render_template(
             "index.html",
             chat_history=chat_history,
