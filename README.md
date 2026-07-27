@@ -165,6 +165,8 @@ Flask web application
 (learned web backend architecture and HTML code)
 
 ## Future Improvements
+
+I started this project to develop my understanding of RAG's back-end. Hence, whilst a good front-end is necessary for user experience, I plan to engage more with developments in back-end approaches to RAG. The repository will likely evolve in accordance to this. I am currently learning about other methods such as vectorless RAG, trying to implementing a cheap reasoning-based retreival system, and most interesting of all, proxy-pointer RAG. My other future ambitions for the project are to:
 1. Improve flask UI
 2. Persistent user accounts and chat history
 3. React frontend
