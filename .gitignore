@@ -18,6 +18,7 @@ embeddings.index
 # Editor files
 *.code-workspace
 *.save
+print_chunk.py
 
 # Large downloads
 ollama.tar.zst
