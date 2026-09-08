@@ -39,8 +39,9 @@ This approach significantly reduces the amount of text supplied to the model whi
 - Semantic search over lecture notes
 - Local embeddings using `all-MiniLM-L6-v2`
 - Local LLM inference using Ollama's `llama 3.1` model
-- Streamlit web interface - (main.py)
-- Modular ingestion pipeline - (ingestion.py)
+- Streamlit web interface - [`main.py`](https://github.com/george-powell/RAG-system/blob/main/main.py)
+- Modular ingestion pipeline - [`ingestion.py`](https://github.com/george-powell/RAG-system/blob/main/src/ingestion.py)
+- Retrieval performance evaluation - [`retrieval_evaluation.py`](https://github.com/george-powell/RAG-system/blob/main/retrieval_evaluation.py)
 
 ## Motivations
 Studying physics at Bristol, I used chatbots like ChatGPT and Claude by Anthropic as tools for revision. However, as course content speciallised more context was needed for accurate answers to be returned. RAG meant I could upload all of my lecture slides once for unlimited quick and accurate course-specific responses. 
