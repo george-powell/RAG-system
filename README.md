@@ -1,10 +1,12 @@
-# University RAG Assistant
+# RAG System
 
-A Retrieval Augmented Generation (RAG) application that allows university students to ask questions about course-specific lecture notes using a local LLM and semantic search.
+A Retrieval Augmented Generation (RAG) application with a Streamlit UI and retrieval and ingestion modularised and performance tested.
 
-The project processes PDF lecture notes, stores them in a vector database, and retrieves relevant content to answer student questions accurately and efficiently.
+The ingestion processes involves loading PDF lecture notes into text, chunking them, embedding them as vectors in an indexed FAISS vector database then finally storing the chunks and the indexes in a folder for use in retrieval. 
 
-## Retrieval Augmented Generation - RAG
+In retrieval, the ingestion data and vector database are loaded. A user question is embedded as a vector and a similarity search is performed with it against all chunks in the vector database. The top K chunks are returned as context to a local LLM which also receives the question and a master prompt. The LLM returns an answer which is passed and displayed on the UI. 
+
+## What is Retrieval Augmented Generation (RAG) and why is it useful?
 
 Large Language Models (LLMs) often need relevant context provided from large databases or document collections. However, supplying an entire document collection or database for every user query is computationally expensive and often exceeds practical context limits.
 
@@ -19,10 +21,8 @@ This approach significantly reduces the amount of text supplied to the model whi
 - Semantic search over lecture notes
 - Local embeddings using `all-MiniLM-L6-v2`
 - Local LLM inference using Ollama's `llama 3.1` model
-- Command-line interface - (query.py)
-- Streamlit web interface - (st_app.py)
-- Flask web application prototype - (flask_app.py)
-- Modular ingestion pipeline - (ingest.py)
+- Streamlit web interface - (main.py)
+- Modular ingestion pipeline - (ingestion.py)
 
 ## Motivations
 Studying physics at Bristol, I used chatbots like ChatGPT and Claude by Anthropic as tools for revision. However, as course content speciallised more context was needed for accurate answers to be returned. RAG meant I could upload all of my lecture slides once for unlimited quick and accurate course-specific responses. 
@@ -37,7 +37,7 @@ Studying physics at Bristol, I used chatbots like ChatGPT and Claude by Anthropi
 | ↓ | ↓ |
 | Chunking | Similarity Search |
 | ↓ | ↓ |
-| Embeddings | Relevant Chunks |
+| Embeddings | Top K Relevant Chunks |
 | ↓ | ↓ |
 | FAISS Index | Prompt + Context |
 | | ↓ |
@@ -45,21 +45,16 @@ Studying physics at Bristol, I used chatbots like ChatGPT and Claude by Anthropi
 ## Project Structure
 
 ```
+main.py
+retrieval_evaluation.py
 src/
-├── load_pdf.py
-├── chunking.py
-├── embedding.py
-├── vector_store.py
-├── ingest.py
-├── query.py
-├── st_app.py
-└── app.py
-
-data/
-└── lecture_notes.pdf
-
-embeddings.index
-chunks.pkl
+├── ingestion.py
+├── 
+├── 
+└── 
+README.md
+requirements.txt
+.gitignore
 ```
 ## Design Choices
 
@@ -72,19 +67,13 @@ Allows local LLM inference without external API costs or dependency on cloud pro
 ### Streamlit
 Used to rapidly prototype a user interface.
 
-### Flask
-Used to learn web application fundamentals and provide greater flexibility than Streamlit.
-
-### React
-Planned future frontend framework for a production-ready interface.
-
 ## Installation
 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/george-powell/university-RAG-assistant
-cd university-RAG-assistant
+git clone https://github.com/george-powell/RAG-system
+cd RAG-system
 ```
 
 2. Create and activate a virtual environment
@@ -111,7 +100,7 @@ Windows (PowerShell):
 pip install -r requirements.txt
 ```
 
-4. Install Ollama and pull the model
+4. Install Ollama and pull the model you want
 
 ```bash
 ollama pull llama3.1
@@ -120,7 +109,7 @@ ollama pull llama3.1
 5. Build the vector database
 
 ```bash
-python src/ingest.py
+python src/ingestion.py
 ```
 
 ## Running the application
@@ -131,38 +120,13 @@ Start Ollama:
 ollama serve
 ```
 
-Then choose one interface:
-
-Command line:
-
-```bash
-python src/query.py
-```
+Then run the UI:
 
 Streamlit:
 
 ```bash
-streamlit run src/st_app.py
+streamlit run main.py
 ```
-
-Flask:
-
-```bash
-python src/app.py
-```
-
-## Adaptations of the Interface
-query.py:   
-Command line chatbot
-(useful POC while the backend was being developed)
-
-st_app.py:  
-Streamlit interface
-(learned interactive UI + state)
-
-flask_app.py:     
-Flask web application
-(learned web backend architecture and HTML code)
 
 ## Future Improvements
 
@@ -174,12 +138,5 @@ I started this project to develop my understanding of RAG's back-end. Hence, whi
 5. Develop into a university-tutor SaaS
 
 ## Screenshots
-I provided PDF documents from my provided university lecture notes, asking the content relevant question: "Is the Hamiltonian a unitary operator?"
-### command-line Interface
-![Alt text](images/command_line.png)
-
-### Streamlit Interface
+I provided PDF documents from my provided university lecture notes, asking the content-relevant question: "Is the Hamiltonian a unitary operator?"
 ![Alt text](images/streamlit.png)
-
-### Flask Interface
-![Alt text](images/flask.png)
