@@ -6,6 +6,24 @@ The ingestion processes involves loading PDF lecture notes into text, chunking t
 
 In retrieval, the ingestion data and vector database are loaded. A user question is embedded as a vector and a similarity search is performed with it against all chunks in the vector database. The top K chunks are returned as context to a local LLM which also receives the question and a master prompt. The LLM returns an answer which is passed and displayed on the UI. 
 
+## Performance
+
+| Metric | Result |
+|---|---:|
+| PDFs processed | 3 |
+| Pages processed | 388 |
+| Chunks generated | 775 |
+| Ingestion time | 26.59 s |
+| Retrieval data size | 1.72 MB |
+| Mean retrieval latency | 82.8 ms |
+| Mean end-to-end latency | 18.04 s |
+| Recall@1 | 36.0% |
+| Recall@3 | 55.2% |
+| Recall@5 | 63.5% |
+
+Evaluation was performed using 40 manually constructed questions with manually labelled relevant chunks.
+Retrieval latency includes query embedding and FAISS search, while end-to-end latency includes retrieval and local LLM generation.
+
 ## What is Retrieval Augmented Generation (RAG) and why is it useful?
 
 Large Language Models (LLMs) often need relevant context provided from large databases or document collections. However, supplying an entire document collection or database for every user query is computationally expensive and often exceeds practical context limits.
@@ -42,8 +60,8 @@ Studying physics at Bristol, I used chatbots like ChatGPT and Claude by Anthropi
 | FAISS Index | Prompt + Context |
 | | ↓ |
 | | LLM Response |
-## Project Structure
 
+## Project Structure
 ```
 main.py
 retrieval_evaluation.py
