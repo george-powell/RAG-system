@@ -157,5 +157,6 @@ I started this project to develop my understanding of RAG's back-end. Hence, whi
 5. Develop into a university-tutor SaaS
 
 ## Screenshots
-I provided PDF documents from my provided university lecture notes, asking the content-relevant question: "Is the Hamiltonian a unitary operator?"
-![Alt text](images/streamlit.png)
+After ingesting PDF documents from my university lecture notes, this is an example of the RAG UI answering a content-relevant question:
+
+![Alt text](proof_of_concept.png)
