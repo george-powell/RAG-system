@@ -11,48 +11,30 @@ from src.RAG import RAG
 def main():
 
     recall_questions = {
-    "How is a quantum state represented mathematically?": [312],
-    "What is meant by a superposition of quantum states?": [314, 315],
-    "What condition must a quantum state satisfy in order to be normalised?": [314],
-    "What is the physical interpretation of the coefficients in a quantum state written in a particular basis?": [317],
-    "What is the inner product of two quantum states, and what is it used for?": [327, 328],
-    "How is the bra corresponding to a ket constructed when the ket contains complex coefficients?": [331],
-    "What exercise asks you to calculate the inner product between |ψ⟩ = (3/5)|L⟩ + (4/5)|R⟩ and |ϕ⟩ = (4/5)|L⟩ - (3/5)|R⟩.": [332],
-    "How is the Kronecker delta function defined mathematically?": [334],
-    "What does the operator |R⟩⟨L| do to the state |L⟩?": [337],
-    "What is the identity operator for a two-dimensional system in the |L⟩, |R⟩ basis?": [338],
-    "How can operators be represented as matricies?": [339],
-    "What condition must an operator satisfy to be Hermitian?": [344],
-    "Determine which of the following operators are Hermitian: A = 2|L⟩⟨L| + 3i|R⟩⟨R|, B = i|L⟩⟨R| - i|R⟩⟨L|, C = 2|L⟩⟨L| + 3|R⟩⟨R|.": [344, 345],
-    "What are the possible outcomes when measuring an observable represented by an operator?": [350, 351],
-    "What is the general summation equation for an operator with an orthonormal eigenbasis?": [350, 351],
-    "What is the time-evolution operator for a quantum system whose Hamiltonian has energy eigenstates |n⟩ with energies E_n?": [352, 353],
-    "Why is time evolution in quantum theory unitary?": [359, 360],
-    "What exercise asks you to show that unitary time evolution preserves the inner product between two quantum states.": [361],
-    "For a quantum state expressed as a superposition of energy eigenstates, how does each coefficient change with time?": [361, 362],
-    "How does a measurement affect the quantum state after an outcome has been obtained?": [371, 372],
-    "When was the Stern-Gerlach experiment performed?": [400],
-    "What are the possible results of measuring the z-component of spin for a spin-1/2 particle?": [402, 414],
-
-    "How is the instantaneous velocity of an object mathematically defined?": [521, 522, 523],
-    "Paste in the contents of section 3.2.1 Basis unit vectors.": [539, 540],
-    "What is an inertial reference frame?": [547],
-    "How is the centre of mass frame defined?": [553, 554],
-    "Derive the rocket equation in its derivative form": [563, 564, 565, 566],
-    "What is the scalar product also known as?": [570],
-    "What are statics problems in mechanics?": [577],
-    "Is the coefficient of static friction or kinetic friction typically larger?": [590],
-    "How is the two-body problem effectively reduced to a one-body problem?": [629, 630, 631, 632],
-    "How is a rigid body defined?": [642],
-    "How is circular motion produced?": [649],
-    "Derive the analogue to Newton's second law for circular motion.": [657, 658, 659],
-
-    "What is the difference between frequency and angular frequency?": [35],
-    "What two assumptions are made to solve the damped SHM differential equation?": [57, 58],
-    "How is critical damping mathematically defined?": [61],
-    "What name is given to the measure of the persistance of an oscillation?": [64],
-    "What two regimes does any forced oscillation consist of?": [66, 67],
-    "How does Q-factor relate to full-width at half-maximum of an average power against driving drequency plot for forced oscillations?": [70, 71]
+    "Which officials can ask a Standing Review Board to carry out reviews beyond the required life-cycle reviews?": 106,
+    "What do Pre-Phase A conceptual designs aim to establish about a proposed mission?": 125,
+    "What does the Phase A team revisit to confirm the project is justified and practical enough to earn a place in NASA's budget?": 127,
+    "What is refined in Phase A so the cost impacts of competing design alternatives can be compared?": 132,
+    "Over which project phases are the system design processes primarily applied?": 204,
+    "Which stakeholders are listed as examples for the Pre-Phase A life-cycle stage?": 214,
+    "What does a complete description of a product's functions help potential users determine?": 263,
+    "Which section of the NASA Expanded Guidance for Systems Engineering gives a more detailed discussion of technology assessment during design concept development?": 303,
+    "When mission success can't be captured in a single combined measure, what should the systems engineer weigh alongside the quantitative data?": 323,
+    "What benefit does baselining a particular design solution give the technical team?": 338,
+    "What should the developmental test program include to capture data on system interactions?": 381,
+    "In which project phases can design and analysis be handled by a single general discipline rather than multiple specialized ones?": 529,
+    "What does the basic technical planning strategy say to do with NASA procedural requirements that apply at each level of the PBS?": 532,
+    "Why is a qualification unit typically not flown?": 559,
+    "At what review is the product baseline typically established?": 658,
+    "Why does the handbook recommend a separate data management plan rather than folding it into the program/project plan?": 674,
+    "Why do project managers need visibility into progress against the technical plans?": 704,
+    "In which phase, and before which key decision point, is the MDR/SDR conducted?": 716,
+    "When should the technical team present several closely ranked options to the decision-maker instead of a single recommendation?": 754,
+    "What is the term for the measure of how readily an item can be kept in or restored to specified conditions by maintainers of a given skill level?": 818,
+    "Where are the success criteria for a technical review documented?": 854,
+    "What does system safety engineering aim to achieve?": 858,
+    "What question does the handbook suggest asking to uncover the real need behind a requirement?": 877,
+    "What examples of methods does the SEMP outline give for supporting technical effort integration?": 990,
 }
 
     retrieval_times = []
@@ -68,7 +50,7 @@ def main():
     rag = RAG(retriever)
 
 
-    for question, relevant_chunks in recall_questions.items():
+    for question, relevant_chunk in recall_questions.items():
 
         print(f"Evaluating: {question}")
 
@@ -86,7 +68,7 @@ def main():
         # calculate recall@K
         for k in [1, 3, 5]:
             recall_results[f"Recall@{k}"].append(
-                len(set(relevant_chunks) & set(indices[:k])) / len(relevant_chunks)
+                relevant_chunk in indices[:k]
                 )
 
     # Calculate evaluation statistics

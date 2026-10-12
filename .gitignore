@@ -24,7 +24,7 @@ retrieval_data/
 
 # Local / temporary files
 *.save
-print_chunk.py
+print_chunks.py
 tempCodeRunnerFile.py
 
 # Large downloads
