@@ -120,6 +120,13 @@ ollama serve
 streamlit run main.py
 ```
 
+4. **Terminating the application**
+
+```
+CTRL C        (in terminal running main.py)
+pkill ollama  (in terminal running ollama)
+```
+
 ## Future Improvements
 
 - **Improve retrieval quality:** Evaluate alternative embedding models, chunk sizes and overlap settings.
